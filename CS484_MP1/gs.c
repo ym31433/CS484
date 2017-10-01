@@ -49,6 +49,17 @@ void gauss_jacobi_sequential(int asize) {
   clean_arrays(&A);
 }
 
+void print_A(const float* A, int p_asize) {
+  printf("A =\n");
+  int m, n;
+  for(m = 0; m != p_asize; ++m) {
+    for(n = 0; n != p_asize; ++n) {
+      printf("%f ", A[IND(m, n, p_asize)]);
+    }
+    printf("\n");
+  }
+}
+
 // Parallel Gauss-Jacobi solver using a spinlock (signal wait)
 void gauss_jacobi_pipelined(int num_threads, int asize, int tile_size_x, int tile_size_y) {
   float *A;
@@ -72,12 +83,18 @@ void gauss_jacobi_pipelined(int num_threads, int asize, int tile_size_x, int til
     barrier[k] = 0;
   }
 
+  //debug
+  print_A(A, p_asize);
+
   omp_set_num_threads(num_threads);
 #pragma omp parallel\
 private(threadID, threadX, threadY, up, down, left, right,\
 idx_start, idy_start, idx_end, idy_end, it, i, j, f_it, alt)
 {
   threadID = omp_get_thread_num();
+  //debug
+  printf("number of threads = (serial)%d, (parallel)%d\n", num_threads, omp_get_num_threads());
+  printf("threadID = %d\n", threadID);
   threadX = threadID / num_tile_y;
   threadY = threadID % num_tile_y;
   up     = IND(threadX-1, threadY, num_tile_y);
@@ -90,7 +107,7 @@ idx_start, idy_start, idx_end, idy_end, it, i, j, f_it, alt)
   idx_end   = 1 + (threadX+1)*tile_size_x;
   idy_end   = 1 + (threadY+1)*tile_size_y;
 
-  for(it = 0; it != MAXIT; ++it) {
+  for(it = 0; it != 1; ++it) {
     //****RED****//
     //boundary check & spin on barrier
     /*
@@ -194,6 +211,9 @@ idx_start, idy_start, idx_end, idy_end, it, i, j, f_it, alt)
   }
 }
 
+  //debug
+  print_A(A, p_asize);
+
   #ifdef DPRINT
     for(i = 0; i < p_asize; i+=p_asize/5) {
       printf("A[%4d,%4d]=%7.10f\n", i, i, A[IND(i,i,p_asize)]);
@@ -217,6 +237,8 @@ int main(int argc, char** argv) {
   }
 
   num_threads = (asize*asize)/(tile_size_x*tile_size_y);
+  //debug
+  printf("number of threads: %d\n", num_threads);
 
   // Run and time the sequential version
   time_seqn(asize);
