@@ -1,0 +1,9 @@
+#!/bin/bash
+#PBS -l walltime=00:20:00
+#PBS -l nodes=1:ppn=12
+#PBS -N gauss
+#PBS -j oe
+#PBS -q cs
+
+cd $PBS_O_WORKDIR
+./gs 32 1 1
