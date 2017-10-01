@@ -1,0 +1,11 @@
+#!/bin/bash
+#PBS -l walltime=00:10:00
+#PBS nodes=1:ppn=1
+#PBS -N mp0_a
+#PBS -j oe
+#PBS -q cs
+#PBS -l "naccesspolicy=shared"
+
+cd $PBS_O_WORKDIR
+
+./mp0_a > out_mp0_a.txt
