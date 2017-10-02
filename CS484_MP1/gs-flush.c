@@ -61,7 +61,7 @@ void gauss_jacobi_pipelined(int num_threads, int asize, int tile_size_x, int til
   int threadID, threadX, threadY, up, down, left, right;
   int idx_start, idy_start, idx_end, idy_end;
   int it, i, j, f_it; //f_it: iterator for flush
-  bool alt;
+  int alt;
   //public variables
   int num_tile_y = asize/tile_size_y;
   int num_tile_x = asize/tile_size_x;
@@ -71,9 +71,7 @@ void gauss_jacobi_pipelined(int num_threads, int asize, int tile_size_x, int til
     barrier[k] = 0;
   }
 
-#pragma omp parallel num_threads(num_threads)\
-private(threadID, threadX, threadY, up, down, left, right,\
-idx_start, idy_start, idx_end, idy_end, it, i, j, f_it)
+#pragma omp parallel num_threads(num_threads) private(threadID, threadX, threadY, up, down, left, right, idx_start, idy_start, idx_end, idy_end, it, i, j, f_it)
 {
   threadID = omp_get_thread_num();
   threadX = threadID / num_tile_y;
@@ -100,9 +98,9 @@ idx_start, idy_start, idx_end, idy_end, it, i, j, f_it)
     #pragma omp flush //get newest A value
 
     //calculation
-    alt = false;
+    alt = 0;
     for(i = idx_start; i != idx_end; ++i) {
-      for(j = !alt ? idy_start: idy_start+1; j < idy_end; j+=2) {
+      for(j = !((alt^(tile_size_x&threadX)^(tile_size_y&threadY))&1) ? idy_start: idy_start+1; j < idy_end; j+=2) {
         A[IND(i,j,p_asize)] = 0.25*(
         A[IND(i-1,j,p_asize)] +
         A[IND(i+1,j,p_asize)] +
@@ -130,9 +128,9 @@ idx_start, idy_start, idx_end, idy_end, it, i, j, f_it)
     #pragma omp flush //get newest A value
 
     //calculation
-    alt = true;
+    alt = 1;
     for(i = idx_start; i != idx_end; ++i) {
-      for(j = !alt ? idy_start: idy_start+1; j < idy_end; j+=2) {
+      for(j = !((alt^(tile_size_x&threadX)^(tile_size_y&threadY))&1) ? idy_start: idy_start+1; j < idy_end; j+=2) {
         A[IND(i,j,p_asize)] = 0.25*(
         A[IND(i-1,j,p_asize)] +
         A[IND(i+1,j,p_asize)] +
@@ -174,7 +172,7 @@ int main(int argc, char** argv) {
   num_threads = (asize*asize)/(tile_size_x*tile_size_y);
 
   // Run and time the sequential version
-  time_seqn(asize);
+  //time_seqn(asize);
 
   // Run and time the parallel version
   time_pipe(num_threads, asize, tile_size_x, tile_size_y);

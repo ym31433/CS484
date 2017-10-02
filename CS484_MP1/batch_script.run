@@ -6,4 +6,4 @@
 #PBS -q cs
 
 cd $PBS_O_WORKDIR
-./gs 32 1 1
+./gs 64 32 32

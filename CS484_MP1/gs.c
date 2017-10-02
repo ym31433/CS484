@@ -49,6 +49,17 @@ void gauss_jacobi_sequential(int asize) {
   clean_arrays(&A);
 }
 
+void print_A(const float* A, int p_asize) {
+  printf("A =\n");
+  int m, n;
+  for(m = 0; m != p_asize; ++m) {
+    for(n = 0; n != p_asize; ++n) {
+      printf("%f ", A[IND(m, n, p_asize)]);
+    }
+    printf("\n");
+  }
+}
+
 // Parallel Gauss-Jacobi solver using a spinlock (signal wait)
 void gauss_jacobi_pipelined(int num_threads, int asize, int tile_size_x, int tile_size_y) {
   float *A;
@@ -59,6 +70,7 @@ void gauss_jacobi_pipelined(int num_threads, int asize, int tile_size_x, int til
   /* ****************** YOUR CODE GOES HERE ****************** */
   //private variables
   int threadID, threadX, threadY, up, down, left, right;
+  //int barrier_data;
   int idx_start, idy_start, idx_end, idy_end;
   int it, i, j, f_it; //f_it: iterator for flush
   int alt;
@@ -71,9 +83,17 @@ void gauss_jacobi_pipelined(int num_threads, int asize, int tile_size_x, int til
     barrier[k] = 0;
   }
 
-#pragma omp parallel num_threads(num_threads) private(threadID, threadX, threadY, up, down, left, right, idx_start, idy_start, idx_end, idy_end, it, i, j, f_it)
+  //debug
+  //print_A(A, p_asize);
+  //printf("max number of threads: %d", omp_get_max_threads());
+
+  omp_set_num_threads(num_threads);
+#pragma omp parallel private(threadID, threadX, threadY, up, down, left, right, idx_start, idy_start, idx_end, idy_end, it, i, j, f_it, alt)
 {
   threadID = omp_get_thread_num();
+  //debug
+  //printf("number of threads = (serial)%d, (parallel)%d\n", num_threads, omp_get_num_threads());
+  //printf("threadID = %d\n", threadID);
   threadX = threadID / num_tile_y;
   threadY = threadID % num_tile_y;
   up     = IND(threadX-1, threadY, num_tile_y);
@@ -89,13 +109,35 @@ void gauss_jacobi_pipelined(int num_threads, int asize, int tile_size_x, int til
   for(it = 0; it != MAXIT; ++it) {
     //****RED****//
     //boundary check & spin on barrier
-    while( (threadX-1 >= 0 && barrier[up] != it*2) ||
-           (threadX+1 < num_tile_x && barrier[down] != it*2) ||
-	   (threadY-1 >= 0 && barrier[left] != it*2) ||
-	   (threadY+1 < num_tile_y && barrier[right] != it*2)) {
-      //#pragma omp flush //get newest barrier value
+    /*
+    //up
+    if(threadX-1 >= 0) {
+      barrier[up] += 0;
+      while(barrier[up] != it*2) {
+	barrier[up] += 0;
+      }
     }
-    #pragma omp flush //get newest A value
+    //down
+    if(threadX+1 < num_tile_x) {
+      barrier[down] += 0;
+      while(barrier[down] != it*2) {
+        barrier[down] += 0;
+      }
+    }
+    //left
+    if(threadY-1 >= 0) {
+      barrier[left] += 0;
+      while(barrier[left] != it*2) {
+	barrier[down] += 0;
+      }
+    }
+    //right
+    if(threadY+1 < num_tile_y) {
+      barrier[right] += 0;
+      while(barrier[right] != it*2) {
+	barrier[right] += 0;
+      }
+    }*/
 
     //calculation
     alt = 0;
@@ -109,23 +151,44 @@ void gauss_jacobi_pipelined(int num_threads, int asize, int tile_size_x, int til
       }
       alt = !alt;
     }
-    #pragma omp flush //update A
 
     //update barrier
-    barrier[threadID]++;
-    #pragma omp flush
-
+    //#pragma omp atomic
+    //barrier[threadID] = it*2+1;
+    #pragma omp barrier
 
 
     //****BLACK****//
     //boundary check & spin on barrier
-    while( (threadX-1 >= 0 && barrier[up] != it*2+1) ||
-           (threadX+1 < num_tile_x && barrier[down] != it*2+1) ||
-	   (threadY-1 >= 0 && barrier[left] != it*2+1) ||
-	   (threadY+1 < num_tile_y && barrier[right] != it*2+1)) {
-      //#pragma omp flush //get newest barrier value
+    /*
+    //up
+    if(threadX-1 >= 0) {
+      barrier[up] += 0;
+      while(barrier[up] != it*2+1) {
+	barrier[up] += 0;
+      }
     }
-    #pragma omp flush //get newest A value
+    //down
+    if(threadX+1 < num_tile_x) {
+      barrier[down] += 0;
+      while(barrier[down] != it*2+1) {
+        barrier[down] += 0;
+      }
+    }
+    //left
+    if(threadY-1 >= 0) {
+      barrier[left] += 0;
+      while(barrier[left] != it*2+1) {
+	barrier[down] += 0;
+      }
+    }
+    //right
+    if(threadY+1 < num_tile_y) {
+      barrier[right] += 0;
+      while(barrier[right] != it*2+1) {
+	barrier[right] += 0;
+      }
+    }*/
 
     //calculation
     alt = 1;
@@ -139,13 +202,16 @@ void gauss_jacobi_pipelined(int num_threads, int asize, int tile_size_x, int til
       }
       alt = !alt;
     }
-    #pragma omp flush //update A
 
     //update barrier
-    barrier[threadID]++;
-    #pragma omp flush
+    //#pragma omp atomic
+    //barrier[threadID] = (it+1)*2;
+    #pragma omp barrier
   }
 }
+
+  //debug
+  //print_A(A, p_asize);
 
   #ifdef DPRINT
     for(i = 0; i < p_asize; i+=p_asize/5) {
@@ -170,9 +236,11 @@ int main(int argc, char** argv) {
   }
 
   num_threads = (asize*asize)/(tile_size_x*tile_size_y);
+  //debug
+  //printf("number of threads: %d\n", num_threads);
 
   // Run and time the sequential version
-  time_seqn(asize);
+  //time_seqn(asize);
 
   // Run and time the parallel version
   time_pipe(num_threads, asize, tile_size_x, tile_size_y);
