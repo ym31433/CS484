@@ -98,3 +98,28 @@ void report_iteration(int rank, int iter, float iteration_sum, float **A)
 void clean_arrays(float **A) {
   free(*A);
 }
+
+//print matrix
+void printA(int rank, float** A, int tileSizeX, int tileSizeY) {
+  if(rank == 0) {
+    int i, j;
+    printf("myRank = %d, A = \n", rank);
+    for(i = 0; i != tileSizeX+2; ++i) {
+      for(j = 0; j != tileSizeY+2; ++j) {
+        printf("%f ", (*A)[IND(i, j, tileSizeY+2)]);
+      }
+      printf("\n");
+    }
+  }
+}
+
+//print A sequential
+void printAsequential(float** A, int a_size) {
+  int i, j;
+  for(i = 0; i != a_size+2; ++i) {
+    for(j = 0; j != a_size+2; ++j) {
+      printf("%f ", (*A)[IND(i, j, a_size+2)]);
+    }
+    printf("\n");
+  }
+}

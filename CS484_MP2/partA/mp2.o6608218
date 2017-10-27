@@ -1,0 +1,72 @@
+----------------------------------------
+Begin Torque Prologue (Thu Oct 26 16:43:11 2017)
+Job ID:           6608218.cc-mgmt1.campuscluster.illinois.edu
+Username:         yhtseng2
+Group:            CS484_fa17
+Job Name:         mp2
+Limits:           walltime=00:20:00,nodes=4:ppn=8,neednodes=4:ppn=8
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub293 golub295 golub297 golub298
+End Torque Prologue
+----------------------------------------
+Warning: Permanently added 'golub297,72.36.102.40' (RSA) to the list of known hosts.
+Warning: Permanently added 'golub298,72.36.102.41' (RSA) to the list of known hosts.
+Warning: Permanently added 'golub293,72.36.102.36' (RSA) to the list of known hosts.
+Iter: 999, global sum = 1481.689941
+----Sequential, 32x32 matrix	Took 0.003533 seconds
+
+Fatal error in PMPI_Isend: Invalid rank, error stack:
+PMPI_Isend(149): MPI_Isend(buf=0x23a2d50, count=1, MPI_FLOAT, dest=37, tag=1, MPI_COMM_WORLD, request=0x7ffe1089be94) failed
+PMPI_Isend(97).: Invalid rank has value 37 but must be nonnegative and less than 32
+Fatal error in PMPI_Isend: Invalid rank, error stack:
+PMPI_Isend(149): MPI_Isend(buf=0x25e9d50, count=1, MPI_FLOAT, dest=35, tag=1, MPI_COMM_WORLD, request=0x7ffe5fa62f04) failed
+PMPI_Isend(97).: Invalid rank has value 35 but must be nonnegative and less than 32
+Fatal error in PMPI_Isend: Invalid rank, error stack:
+PMPI_Isend(149): MPI_Isend(buf=0x11ead50, count=1, MPI_FLOAT, dest=34, tag=1, MPI_COMM_WORLD, request=0x7ffefb58e244) failed
+PMPI_Isend(97).: Invalid rank has value 34 but must be nonnegative and less than 32
+Fatal error in PMPI_Isend: Invalid rank, error stack:
+PMPI_Isend(149): MPI_Isend(buf=0x12a8d50, count=1, MPI_FLOAT, dest=38, tag=1, MPI_COMM_WORLD, request=0x7fff7b3d5524) failed
+PMPI_Isend(97).: Invalid rank has value 38 but must be nonnegative and less than 32
+Fatal error in PMPI_Isend: Invalid rank, error stack:
+PMPI_Isend(149): MPI_Isend(buf=0x1462330, count=1, MPI_FLOAT, dest=32, tag=1, MPI_COMM_WORLD, request=0x7ffe316ba024) failed
+PMPI_Isend(97).: Invalid rank has value 32 but must be nonnegative and less than 32
+Fatal error in PMPI_Isend: Invalid rank, error stack:
+PMPI_Isend(149): MPI_Isend(buf=0x1c3dd50, count=1, MPI_FLOAT, dest=33, tag=1, MPI_COMM_WORLD, request=0x7ffff18b0284) failed
+PMPI_Isend(97).: Invalid rank has value 33 but must be nonnegative and less than 32
+Fatal error in PMPI_Isend: Invalid rank, error stack:
+PMPI_Isend(149): MPI_Isend(buf=0xd15d50, count=1, MPI_FLOAT, dest=39, tag=1, MPI_COMM_WORLD, request=0x7fff660de034) failed
+PMPI_Isend(97).: Invalid rank has value 39 but must be nonnegative and less than 32
+Fatal error in PMPI_Isend: Invalid rank, error stack:
+PMPI_Isend(149): MPI_Isend(buf=0x1eead50, count=1, MPI_FLOAT, dest=62, tag=1, MPI_COMM_WORLD, request=0x7ffce5ece984) failed
+PMPI_Isend(97).: Invalid rank has value 62 but must be nonnegative and less than 32
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 94556 RUNNING AT golub295
+=   EXIT CODE: 1
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+----------------------------------------
+Begin Torque Epilogue (Thu Oct 26 16:43:15 2017)
+Job ID:           6608218.cc-mgmt1.campuscluster.illinois.edu
+Username:         yhtseng2
+Group:            CS484_fa17
+Job Name:         mp2
+Session:          94505
+Limits:           walltime=00:20:00,nodes=4:ppn=8,neednodes=4:ppn=8
+Resources:        cput=00:00:00,vmem=0kb,walltime=00:00:02,mem=0kb,energy_used=0
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub293 golub295 golub297 golub298
+End Torque Epilogue
+----------------------------------------

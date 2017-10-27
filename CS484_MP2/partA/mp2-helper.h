@@ -10,7 +10,7 @@
 
 #define DPRINT
 #define REPORT_SUM
-#define RUN_SEQ
+//#define RUN_SEQ
 #define MAXIT  1000       // Maxinum number of iterations to allow
 
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
@@ -47,4 +47,9 @@ void report_iteration(int rank, int iter, float iteration_sum, float **A);
 // Deallocate memory for arrays
 void clean_arrays(float **A);
 
+// printA
+void printA(int rank, float** A, int tileSizeX, int tileSizeY);
+
+// printAsequential
+void printAsequential(float** A, int a_size);
 #endif //#MP2_HELPER_H

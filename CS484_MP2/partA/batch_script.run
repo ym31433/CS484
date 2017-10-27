@@ -7,4 +7,8 @@
 
 cd $PBS_O_WORKDIR
 module load mpi/mpich/3.1.3-gcc-4.7.1
-mpirun -np 32 ./mp2 32 1 1
+mpirun -np 4 ./mp2 1024 512 512
+mpirun -np 16 ./mp2 1024 256 256
+mpirun -np 64 ./mp2 4096 512 512
+mpirun -np 16 ./mp2 4096 1024 1024
+mpirun -np 64 ./mp2 8192 1024 1024

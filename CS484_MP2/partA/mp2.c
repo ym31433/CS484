@@ -27,6 +27,8 @@ void sequential_solver(int asize) {
       }
       alt = !alt;
     }
+    //debug
+    //printAsequential(&A, asize);
     
     // Black
     alt = true;
@@ -73,8 +75,21 @@ void parallel_solver(int asize, int tileSizeY, int tileSizeX) {
   int rankY = myRank % numTilesY;
   int up = IND(rankX-1, rankY, numTilesY);
   int down = IND(rankX+1, rankY, numTilesY);
-  int right = IND(rankX, rankY-1, numTilesY);
-  int left = IND(rankX, rankY+1, numTilesY);
+  int left = IND(rankX, rankY-1, numTilesY);
+  int right = IND(rankX, rankY+1, numTilesY);
+  //debug
+  /*
+  if(up == 16 || down == 16 || right == 16 || left == 16) {
+    printf("myRank = %d\n", myRank);
+    printf("numTilesX = %d\n", numTilesX);
+    printf("numTilesY = %d\n", numTilesY);
+    printf("rankX = %d\n", rankX);
+    printf("rankY = %d\n", rankY);
+    printf("up    = %d\n", up);
+    printf("down  = %d\n", down);
+    printf("right = %d\n", right);
+    printf("left  = %d\n", left);
+  }*/
   int alt = 0;
   float* sendAup   =  (float*)malloc(tileSizeY*sizeof(float));
   float* sendAdown =  (float*)malloc(tileSizeY*sizeof(float));
@@ -92,10 +107,13 @@ void parallel_solver(int asize, int tileSizeY, int tileSizeX) {
   {
     // Reset peak at the beginning of each iteration
     reset_peak(myRank, tileSizeY, &A);
+    //debug
+    //printA(myRank, &A, tileSizeX, tileSizeY);
 
     /* YOUR PARALLEL CODE GOES HERE */
     /*************RED****************/
     //sending ghost cells
+    
     if(rankX-1 >= 0) {
       for(j = 0; j != tileSizeY; ++j) {
         sendAup[j] = A[IND(1, j+1, tileSizeY+2)];
@@ -103,12 +121,16 @@ void parallel_solver(int asize, int tileSizeY, int tileSizeX) {
       MPI_Isend(sendAup, tileSizeY, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &reqUp);
     }
     if(rankX+1 < numTilesX) {
+      //debug
+      //printf("down, myRank = %d\n", myRank);
       for(j = 0; j != tileSizeY; ++j) {
         sendAdown[j] = A[IND(tileSizeX, j+1, tileSizeY+2)];
       }
       MPI_Isend(sendAdown, tileSizeY, MPI_FLOAT, down, 1, MPI_COMM_WORLD, &reqDown);
     }
     if(rankY-1 >= 0) {
+      //debug
+      //printf("left, myRank = %d\n", myRank);
       for(i = 0; i != tileSizeX; ++i) {
         sendAleft[i] = A[IND(i+1, 1, tileSizeY+2)];
       }
@@ -124,33 +146,40 @@ void parallel_solver(int asize, int tileSizeY, int tileSizeX) {
     if(rankX+1 < numTilesX) {
       MPI_Recv(recvAdown, tileSizeY, MPI_FLOAT, down, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
       for(j = 0; j != tileSizeY; ++j) {
-        A[IND(tileSizeX, j+1, tileSizeY+2)] = recvAdown[j];
+        A[IND(tileSizeX+1, j+1, tileSizeY+2)] = recvAdown[j];
       }
     }
     if(rankX-1 >= 0) {
       MPI_Recv(recvAup, tileSizeY, MPI_FLOAT, up, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
       for(j = 0; j != tileSizeY; ++j) {
-        A[IND(1, j+1, tileSizeY+2)] = recvAup[j];
+        A[IND(0, j+1, tileSizeY+2)] = recvAup[j];
       }
     }
     if(rankY+1 < numTilesY) {
       MPI_Recv(recvAright, tileSizeX, MPI_FLOAT, right, 2, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
       for(i = 0; i != tileSizeX; ++i) {
-        A[IND(i+1, tileSizeY, tileSizeY+2)] = recvAright[i];
+        A[IND(i+1, tileSizeY+1, tileSizeY+2)] = recvAright[i];
       }
     }
     if(rankY-1 >= 0) {
       MPI_Recv(recvAleft, tileSizeX, MPI_FLOAT, left, 3, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
       for(i = 0; i != tileSizeX; ++i) {
-        A[IND(i+1, 1, tileSizeY+2)] = recvAleft[i];
+        A[IND(i+1, 0, tileSizeY+2)] = recvAleft[i];
       }
     }
  
+    //debug
+    //printA(myRank, &A, tileSizeX, tileSizeY);
     //calculation
     alt = 0;
     for(i = 1; i != tileSizeX+1; ++i) {
       for(j = !((alt^(tileSizeX&rankX)^(tileSizeY&rankY))&1) ? 1: 2; j < tileSizeY+1; j+=2) {
-        A[IND(i,j,tileSizeY+2)] = 0.25*(
+        /*debug
+	if(myRank == 0) {
+          printf("i, j = %d, %d\n", i, j);
+	}*/
+        A[IND(i,j,tileSizeY+2)] = 0.20*(
+        A[IND(i,j,tileSizeY+2)] +
         A[IND(i-1,j,tileSizeY+2)] +
         A[IND(i+1,j,tileSizeY+2)] +
         A[IND(i,j-1,tileSizeY+2)] +
@@ -159,6 +188,8 @@ void parallel_solver(int asize, int tileSizeY, int tileSizeX) {
       alt = !alt;
     }
     
+    //debug
+    //printA(myRank, &A, tileSizeX, tileSizeY);
     //synchronization
     if(rankX-1 >= 0) {
       MPI_Wait(&reqUp, MPI_STATUS_IGNORE);
@@ -173,6 +204,7 @@ void parallel_solver(int asize, int tileSizeY, int tileSizeX) {
       MPI_Wait(&reqRight, MPI_STATUS_IGNORE);
     }
     /*************BLACK****************/
+    
     //sending ghost cells
     if(rankX-1 >= 0) {
       for(j = 0; j != tileSizeY; ++j) {
@@ -202,25 +234,25 @@ void parallel_solver(int asize, int tileSizeY, int tileSizeX) {
     if(rankX+1 < numTilesX) {
       MPI_Recv(recvAdown, tileSizeY, MPI_FLOAT, down, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
       for(j = 0; j != tileSizeY; ++j) {
-        A[IND(tileSizeX, j+1, tileSizeY+2)] = recvAdown[j];
+        A[IND(tileSizeX+1, j+1, tileSizeY+2)] = recvAdown[j];
       }
     }
     if(rankX-1 >= 0) {
       MPI_Recv(recvAup, tileSizeY, MPI_FLOAT, up, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
       for(j = 0; j != tileSizeY; ++j) {
-        A[IND(1, j+1, tileSizeY+2)] = recvAup[j];
+        A[IND(0, j+1, tileSizeY+2)] = recvAup[j];
       }
     }
     if(rankY+1 < numTilesY) {
       MPI_Recv(recvAright, tileSizeX, MPI_FLOAT, right, 2, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
       for(i = 0; i != tileSizeX; ++i) {
-        A[IND(i+1, tileSizeY, tileSizeY+2)] = recvAright[i];
+        A[IND(i+1, tileSizeY+1, tileSizeY+2)] = recvAright[i];
       }
     }
     if(rankY-1 >= 0) {
       MPI_Recv(recvAleft, tileSizeX, MPI_FLOAT, left, 3, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
       for(i = 0; i != tileSizeX; ++i) {
-        A[IND(i+1, 1, tileSizeY+2)] = recvAleft[i];
+        A[IND(i+1, 0, tileSizeY+2)] = recvAleft[i];
       }
     }
  
@@ -228,7 +260,8 @@ void parallel_solver(int asize, int tileSizeY, int tileSizeX) {
     alt = 1;
     for(i = 1; i != tileSizeX+1; ++i) {
       for(j = !((alt^(tileSizeX&rankX)^(tileSizeY&rankY))&1) ? 1: 2; j < tileSizeY+1; j+=2) {
-        A[IND(i,j,tileSizeY+2)] = 0.25*(
+        A[IND(i,j,tileSizeY+2)] = 0.20*(
+        A[IND(i,j,tileSizeY+2)] +
         A[IND(i-1,j,tileSizeY+2)] +
         A[IND(i+1,j,tileSizeY+2)] +
         A[IND(i,j-1,tileSizeY+2)] +
