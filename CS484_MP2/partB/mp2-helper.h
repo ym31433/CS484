@@ -10,7 +10,7 @@
 
 #define DPRINT
 #define REPORT_SUM
-#define RUN_SEQ
+//#define RUN_SEQ
 #define MAXIT  1000       // Maxinum number of iterations to allow
 
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))

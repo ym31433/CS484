@@ -101,6 +101,7 @@ void parallel_solver(int asize, int tileSizeY, int tileSizeX) {
   float* recvAright = (float*)malloc(tileSizeX*sizeof(float));
   int i, j;
   MPI_Request reqUp, reqDown, reqLeft, reqRight;
+  MPI_Request recvReqUp, recvReqDown, recvReqLeft, recvReqRight;
 
   int it;
   for(it = 0; it < MAXIT; it++)
@@ -144,25 +145,38 @@ void parallel_solver(int asize, int tileSizeY, int tileSizeX) {
     }
     //receiving ghost cells
     if(rankX+1 < numTilesX) {
-      MPI_Recv(recvAdown, tileSizeY, MPI_FLOAT, down, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+      MPI_Irecv(recvAdown, tileSizeY, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &recvReqDown);
+    }
+    if(rankX-1 >= 0) {
+      MPI_Irecv(recvAup, tileSizeY, MPI_FLOAT, up, 1, MPI_COMM_WORLD, &recvReqUp);
+    }
+    if(rankY+1 < numTilesY) {
+      MPI_Irecv(recvAright, tileSizeX, MPI_FLOAT, right, 2, MPI_COMM_WORLD, &recvReqRight);
+    }
+    if(rankY-1 >= 0) {
+      MPI_Irecv(recvAleft, tileSizeX, MPI_FLOAT, left, 3, MPI_COMM_WORLD, &recvReqLeft);
+    }
+    //synchronization
+    if(rankX+1 < numTilesX) {
+      MPI_Wait(&recvReqDown, MPI_STATUS_IGNORE);
       for(j = 0; j != tileSizeY; ++j) {
         A[IND(tileSizeX+1, j+1, tileSizeY+2)] = recvAdown[j];
       }
     }
     if(rankX-1 >= 0) {
-      MPI_Recv(recvAup, tileSizeY, MPI_FLOAT, up, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+      MPI_Wait(&recvReqUp, MPI_STATUS_IGNORE);
       for(j = 0; j != tileSizeY; ++j) {
         A[IND(0, j+1, tileSizeY+2)] = recvAup[j];
       }
     }
     if(rankY+1 < numTilesY) {
-      MPI_Recv(recvAright, tileSizeX, MPI_FLOAT, right, 2, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+      MPI_Wait(&recvReqRight, MPI_STATUS_IGNORE);
       for(i = 0; i != tileSizeX; ++i) {
         A[IND(i+1, tileSizeY+1, tileSizeY+2)] = recvAright[i];
       }
     }
     if(rankY-1 >= 0) {
-      MPI_Recv(recvAleft, tileSizeX, MPI_FLOAT, left, 3, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+      MPI_Wait(&recvReqLeft, MPI_STATUS_IGNORE);
       for(i = 0; i != tileSizeX; ++i) {
         A[IND(i+1, 0, tileSizeY+2)] = recvAleft[i];
       }
@@ -232,25 +246,38 @@ void parallel_solver(int asize, int tileSizeY, int tileSizeX) {
     }
     //receiving ghost cells
     if(rankX+1 < numTilesX) {
-      MPI_Recv(recvAdown, tileSizeY, MPI_FLOAT, down, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+      MPI_Irecv(recvAdown, tileSizeY, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &recvReqDown);
+    }
+    if(rankX-1 >= 0) {
+      MPI_Irecv(recvAup, tileSizeY, MPI_FLOAT, up, 1, MPI_COMM_WORLD, &recvReqUp);
+    }
+    if(rankY+1 < numTilesY) {
+      MPI_Irecv(recvAright, tileSizeX, MPI_FLOAT, right, 2, MPI_COMM_WORLD, &recvReqRight);
+    }
+    if(rankY-1 >= 0) {
+      MPI_Irecv(recvAleft, tileSizeX, MPI_FLOAT, left, 3, MPI_COMM_WORLD, &recvReqLeft);
+    }
+    //synchronization
+    if(rankX+1 < numTilesX) {
+      MPI_Wait(&recvReqDown, MPI_STATUS_IGNORE);
       for(j = 0; j != tileSizeY; ++j) {
         A[IND(tileSizeX+1, j+1, tileSizeY+2)] = recvAdown[j];
       }
     }
     if(rankX-1 >= 0) {
-      MPI_Recv(recvAup, tileSizeY, MPI_FLOAT, up, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+      MPI_Wait(&recvReqUp, MPI_STATUS_IGNORE);
       for(j = 0; j != tileSizeY; ++j) {
         A[IND(0, j+1, tileSizeY+2)] = recvAup[j];
       }
     }
     if(rankY+1 < numTilesY) {
-      MPI_Recv(recvAright, tileSizeX, MPI_FLOAT, right, 2, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+      MPI_Wait(&recvReqRight, MPI_STATUS_IGNORE);
       for(i = 0; i != tileSizeX; ++i) {
         A[IND(i+1, tileSizeY+1, tileSizeY+2)] = recvAright[i];
       }
     }
     if(rankY-1 >= 0) {
-      MPI_Recv(recvAleft, tileSizeX, MPI_FLOAT, left, 3, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+      MPI_Wait(&recvReqLeft, MPI_STATUS_IGNORE);
       for(i = 0; i != tileSizeX; ++i) {
         A[IND(i+1, 0, tileSizeY+2)] = recvAleft[i];
       }

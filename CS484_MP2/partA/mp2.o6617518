@@ -1,0 +1,184 @@
+----------------------------------------
+Begin Torque Prologue (Sun Oct 29 21:14:24 2017)
+Job ID:           6617518.cc-mgmt1.campuscluster.illinois.edu
+Username:         yhtseng2
+Group:            CS484_fa17
+Job Name:         mp2
+Limits:           walltime=00:20:00,nodes=4:ppn=8,neednodes=4:ppn=8
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub293 golub296 golub297 golub298
+End Torque Prologue
+----------------------------------------
+Iter: 999, global sum = 4921149.000000
+----Parallel, 1024x1024 matrix, tilesize 512x512	Took 0.854500 seconds
+
+Iter: 999, global sum = 4921149.000000
+----Parallel, 1024x1024 matrix, tilesize 512x512	Took 0.861037 seconds
+
+Iter: 999, global sum = 4921149.000000
+----Parallel, 1024x1024 matrix, tilesize 512x512	Took 0.854309 seconds
+
+Iter: 999, global sum = 4921149.000000
+----Parallel, 1024x1024 matrix, tilesize 512x512	Took 0.855765 seconds
+
+Iter: 999, global sum = 4921149.000000
+----Parallel, 1024x1024 matrix, tilesize 512x512	Took 0.868104 seconds
+
+Iter: 999, global sum = 4921149.000000
+----Parallel, 1024x1024 matrix, tilesize 512x512	Took 0.876288 seconds
+
+Iter: 999, global sum = 4921149.000000
+----Parallel, 1024x1024 matrix, tilesize 512x512	Took 0.862130 seconds
+
+Iter: 999, global sum = 4921149.000000
+----Parallel, 1024x1024 matrix, tilesize 512x512	Took 0.871799 seconds
+
+Iter: 999, global sum = 4921149.000000
+----Parallel, 1024x1024 matrix, tilesize 512x512	Took 0.863644 seconds
+
+Iter: 999, global sum = 4921149.000000
+----Parallel, 1024x1024 matrix, tilesize 512x512	Took 0.868988 seconds
+
+Iter: 999, global sum = 4920697.000000
+----Parallel, 1024x1024 matrix, tilesize 256x256	Took 0.369979 seconds
+
+Iter: 999, global sum = 4920697.000000
+----Parallel, 1024x1024 matrix, tilesize 256x256	Took 0.371833 seconds
+
+Iter: 999, global sum = 4920697.000000
+----Parallel, 1024x1024 matrix, tilesize 256x256	Took 0.400567 seconds
+
+Iter: 999, global sum = 4920697.000000
+----Parallel, 1024x1024 matrix, tilesize 256x256	Took 0.387741 seconds
+
+Iter: 999, global sum = 4920697.000000
+----Parallel, 1024x1024 matrix, tilesize 256x256	Took 0.378566 seconds
+
+Iter: 999, global sum = 4920697.000000
+----Parallel, 1024x1024 matrix, tilesize 256x256	Took 0.390747 seconds
+
+Iter: 999, global sum = 4920697.000000
+----Parallel, 1024x1024 matrix, tilesize 256x256	Took 0.371299 seconds
+
+Iter: 999, global sum = 4920697.000000
+----Parallel, 1024x1024 matrix, tilesize 256x256	Took 0.391323 seconds
+
+Iter: 999, global sum = 4920697.000000
+----Parallel, 1024x1024 matrix, tilesize 256x256	Took 0.393262 seconds
+
+Iter: 999, global sum = 4920697.000000
+----Parallel, 1024x1024 matrix, tilesize 256x256	Took 0.379971 seconds
+
+Iter: 999, global sum = 82578560.000000
+----Parallel, 4096x4096 matrix, tilesize 512x512	Took 20.123065 seconds
+
+Iter: 999, global sum = 82578560.000000
+----Parallel, 4096x4096 matrix, tilesize 512x512	Took 20.074307 seconds
+
+Iter: 999, global sum = 82578560.000000
+----Parallel, 4096x4096 matrix, tilesize 512x512	Took 20.101368 seconds
+
+Iter: 999, global sum = 82578560.000000
+----Parallel, 4096x4096 matrix, tilesize 512x512	Took 19.046974 seconds
+
+Iter: 999, global sum = 82578560.000000
+----Parallel, 4096x4096 matrix, tilesize 512x512	Took 19.281669 seconds
+
+Iter: 999, global sum = 82578560.000000
+----Parallel, 4096x4096 matrix, tilesize 512x512	Took 20.064987 seconds
+
+Iter: 999, global sum = 82578560.000000
+----Parallel, 4096x4096 matrix, tilesize 512x512	Took 20.094089 seconds
+
+Iter: 999, global sum = 82578560.000000
+----Parallel, 4096x4096 matrix, tilesize 512x512	Took 20.119375 seconds
+
+Iter: 999, global sum = 82578560.000000
+----Parallel, 4096x4096 matrix, tilesize 512x512	Took 20.059649 seconds
+
+Iter: 999, global sum = 82578560.000000
+----Parallel, 4096x4096 matrix, tilesize 512x512	Took 20.040381 seconds
+
+Iter: 999, global sum = 82580208.000000
+----Parallel, 4096x4096 matrix, tilesize 1024x1024	Took 4.256873 seconds
+
+Iter: 999, global sum = 82580208.000000
+----Parallel, 4096x4096 matrix, tilesize 1024x1024	Took 4.291303 seconds
+
+Iter: 999, global sum = 82580208.000000
+----Parallel, 4096x4096 matrix, tilesize 1024x1024	Took 4.268233 seconds
+
+Iter: 999, global sum = 82580208.000000
+----Parallel, 4096x4096 matrix, tilesize 1024x1024	Took 4.264581 seconds
+
+Iter: 999, global sum = 82580208.000000
+----Parallel, 4096x4096 matrix, tilesize 1024x1024	Took 4.283799 seconds
+
+Iter: 999, global sum = 82580208.000000
+----Parallel, 4096x4096 matrix, tilesize 1024x1024	Took 4.300597 seconds
+
+Iter: 999, global sum = 82580208.000000
+----Parallel, 4096x4096 matrix, tilesize 1024x1024	Took 4.194387 seconds
+
+Iter: 999, global sum = 82580208.000000
+----Parallel, 4096x4096 matrix, tilesize 1024x1024	Took 4.285689 seconds
+
+Iter: 999, global sum = 82580208.000000
+----Parallel, 4096x4096 matrix, tilesize 1024x1024	Took 4.208488 seconds
+
+Iter: 999, global sum = 82580208.000000
+----Parallel, 4096x4096 matrix, tilesize 1024x1024	Took 4.296218 seconds
+
+Iter: 999, global sum = 332925760.000000
+----Parallel, 8192x8192 matrix, tilesize 1024x1024	Took 20.564735 seconds
+
+Iter: 999, global sum = 332925760.000000
+----Parallel, 8192x8192 matrix, tilesize 1024x1024	Took 20.340709 seconds
+
+Iter: 999, global sum = 332925760.000000
+----Parallel, 8192x8192 matrix, tilesize 1024x1024	Took 20.866659 seconds
+
+Iter: 999, global sum = 332925760.000000
+----Parallel, 8192x8192 matrix, tilesize 1024x1024	Took 20.674093 seconds
+
+Iter: 999, global sum = 332925760.000000
+----Parallel, 8192x8192 matrix, tilesize 1024x1024	Took 20.366764 seconds
+
+Iter: 999, global sum = 332925760.000000
+----Parallel, 8192x8192 matrix, tilesize 1024x1024	Took 20.236179 seconds
+
+Iter: 999, global sum = 332925760.000000
+----Parallel, 8192x8192 matrix, tilesize 1024x1024	Took 20.269115 seconds
+
+Iter: 999, global sum = 332925760.000000
+----Parallel, 8192x8192 matrix, tilesize 1024x1024	Took 20.528017 seconds
+
+Iter: 999, global sum = 332925760.000000
+----Parallel, 8192x8192 matrix, tilesize 1024x1024	Took 20.467324 seconds
+
+Iter: 999, global sum = 332925760.000000
+----Parallel, 8192x8192 matrix, tilesize 1024x1024	Took 20.505259 seconds
+
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+----------------------------------------
+Begin Torque Epilogue (Sun Oct 29 21:22:18 2017)
+Job ID:           6617518.cc-mgmt1.campuscluster.illinois.edu
+Username:         yhtseng2
+Group:            CS484_fa17
+Job Name:         mp2
+Session:          31124
+Limits:           walltime=00:20:00,nodes=4:ppn=8,neednodes=4:ppn=8
+Resources:        cput=00:55:12,vmem=2179912kb,walltime=00:07:52,mem=181992kb,energy_used=0
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub293 golub296 golub297 golub298
+End Torque Epilogue
+----------------------------------------

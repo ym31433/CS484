@@ -1,0 +1,52 @@
+----------------------------------------
+Begin Torque Prologue (Thu Oct 26 22:36:01 2017)
+Job ID:           6609006.cc-mgmt1.campuscluster.illinois.edu
+Username:         yhtseng2
+Group:            CS484_fa17
+Job Name:         mp2
+Limits:           walltime=00:20:00,nodes=4:ppn=8,neednodes=4:ppn=8
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub291 golub294 golub296 golub297
+End Torque Prologue
+----------------------------------------
+Iter: 999, global sum = 4921149.000000
+----Parallel, 1024x1024 matrix, tilesize 512x512	Took 0.854563 seconds
+
+Warning: Permanently added 'golub296,72.36.102.39' (RSA) to the list of known hosts.
+Iter: 999, global sum = 4920697.000000
+----Parallel, 1024x1024 matrix, tilesize 256x256	Took 0.386320 seconds
+
+Warning: Permanently added 'golub291,72.36.102.34' (RSA) to the list of known hosts.
+Warning: Permanently added 'golub294,72.36.102.37' (RSA) to the list of known hosts.
+Iter: 999, global sum = 82578560.000000
+----Parallel, 4096x4096 matrix, tilesize 512x512	Took 20.057056 seconds
+
+Iter: 999, global sum = 82580208.000000
+----Parallel, 4096x4096 matrix, tilesize 1024x1024	Took 4.331808 seconds
+
+Iter: 999, global sum = 332925760.000000
+----Parallel, 8192x8192 matrix, tilesize 1024x1024	Took 20.372889 seconds
+
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+----------------------------------------
+Begin Torque Epilogue (Thu Oct 26 22:36:52 2017)
+Job ID:           6609006.cc-mgmt1.campuscluster.illinois.edu
+Username:         yhtseng2
+Group:            CS484_fa17
+Job Name:         mp2
+Session:          81875
+Limits:           walltime=00:20:00,nodes=4:ppn=8,neednodes=4:ppn=8
+Resources:        cput=00:03:38,vmem=2175564kb,walltime=00:00:49,mem=162092kb,energy_used=0
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub291 golub294 golub296 golub297
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+End Torque Epilogue
+----------------------------------------
