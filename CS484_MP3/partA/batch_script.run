@@ -1,0 +1,18 @@
+#!/bin/sh
+#PBS -q cs
+#PBS -l nodes=1:ppn=12
+#PBS -N mp3
+#PBS -j oe
+#PBS -l walltime=00:10:00
+
+cd $PBS_O_WORKDIR
+
+./gennodelist.sh > nodelist
+echo "--------- TESTING START -------------"
+
+#./charmrun ++nodelist nodelist ./particle +p12 20 50 50 +balancer RefineLB
+./charmrun ++nodelist nodelist ./particle +p12 10 50 50
+./charmrun ++nodelist nodelist ./particle +p12 20 50 50
+./charmrun ++nodelist nodelist ./particle +p12 30 50 50
+./charmrun ++nodelist nodelist ./particle +p12 40 50 50
+./charmrun ++nodelist nodelist ./particle +p12 50 50 50

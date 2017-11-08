@@ -1,0 +1,60 @@
+----------------------------------------
+Begin Torque Prologue (Tue Nov  7 20:34:58 2017)
+Job ID:           6655281.cc-mgmt1.campuscluster.illinois.edu
+Username:         yhtseng2
+Group:            CS484_fa17
+Job Name:         mp3
+Limits:           nodes=1:ppn=12,walltime=00:10:00,neednodes=1:ppn=12
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub295
+End Torque Prologue
+----------------------------------------
+--------- TESTING START -------------
+Charmrun> scalable start enabled. 
+Charmrun> started all node programs in 1.633 seconds.
+Charm++> Running in non-SMP mode: numPes 12
+Converse/Charm++ Commit ID: v6.8.2
+Warning> Randomization of virtual memory (ASLR) is turned on in the kernel, thread migration may not work! Run 'echo 0 > /proc/sys/kernel/randomize_va_space' as root to disable it, or try running with '+isomalloc_sync'.
+Charm++> scheduler running in netpoll mode.
+CharmLB> Load balancer assumes all CPUs are same.
+Charm++> Running on 1 unique compute nodes (24-way SMP).
+Charm++> cpu topology info is gathered in 0.004 seconds.
+[0] RefineLB created
+iteration: 1
+iteration: 2
+iteration: 3
+iteration: 4
+iteration: 5
+iteration: 6
+iteration: 7
+iteration: 8
+iteration: 9
+ITER 10, MAX: 108730, TOTAL: 75031250
+iteration: 10
+iteration: 11
+iteration: 12
+iteration: 13
+iteration: 14
+iteration: 15
+iteration: 16
+iteration: 17
+iteration: 18
+iteration: 19
+Simulation Complete
+Time taken = 40.308281
+[Partition 0][Node 0] End of program
+----------------------------------------
+Begin Torque Epilogue (Tue Nov  7 20:35:41 2017)
+Job ID:           6655281.cc-mgmt1.campuscluster.illinois.edu
+Username:         yhtseng2
+Group:            CS484_fa17
+Job Name:         mp3
+Session:          113282
+Limits:           nodes=1:ppn=12,walltime=00:10:00,neednodes=1:ppn=12
+Resources:        cput=00:00:00,vmem=132408kb,walltime=00:00:43,mem=8260kb,energy_used=0
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub295
+End Torque Epilogue
+----------------------------------------

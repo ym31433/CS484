@@ -1,0 +1,2 @@
+group main ++shell "/usr/bin/ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o CheckHostIP=no -o BatchMode=yes"
+host golub294

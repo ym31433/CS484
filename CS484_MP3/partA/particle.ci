@@ -1,0 +1,24 @@
+mainmodule ParticlesNoSDAG
+{
+  readonly CProxy_Main mainProxy;
+  readonly CProxy_Cell cellProxy;
+  readonly int particleMultiplier;
+  readonly int charesPerDim;
+  readonly int totalIter;
+
+  mainchare Main 
+  {
+    entry Main(CkArgMsg* m);
+    entry [reductiontarget] void sumReduction(int value);
+    entry [reductiontarget] void maxReduction(int value);
+    entry [reductiontarget] void iterationEnd();
+    entry [reductiontarget] void done();
+  };
+
+  array [2D] Cell
+  {
+    entry Cell(void);
+    entry void updateNeighbor(int iter, std::vector<Particle> incoming);
+    entry void run();
+  };
+};

@@ -1,0 +1,97 @@
+----------------------------------------
+Begin Torque Prologue (Tue Nov  7 22:10:39 2017)
+Job ID:           6655501.cc-mgmt1.campuscluster.illinois.edu
+Username:         yhtseng2
+Group:            CS484_fa17
+Job Name:         mp3
+Limits:           nodes=1:ppn=12,walltime=00:10:00,neednodes=1:ppn=12
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub296
+End Torque Prologue
+----------------------------------------
+--------- TESTING START -------------
+Charmrun> scalable start enabled. 
+Charmrun> started all node programs in 1.696 seconds.
+Charm++> Running in non-SMP mode: numPes 12
+Converse/Charm++ Commit ID: v6.8.2
+Warning> Randomization of virtual memory (ASLR) is turned on in the kernel, thread migration may not work! Run 'echo 0 > /proc/sys/kernel/randomize_va_space' as root to disable it, or try running with '+isomalloc_sync'.
+Charm++> scheduler running in netpoll mode.
+CharmLB> Load balancer assumes all CPUs are same.
+Charm++> Running on 1 unique compute nodes (24-way SMP).
+Charm++> cpu topology info is gathered in 0.006 seconds.
+Simulation Complete
+Time taken: 20.720016
+[Partition 0][Node 0] End of program
+Charmrun> scalable start enabled. 
+Charmrun> started all node programs in 1.568 seconds.
+Charm++> Running in non-SMP mode: numPes 12
+Converse/Charm++ Commit ID: v6.8.2
+Warning> Randomization of virtual memory (ASLR) is turned on in the kernel, thread migration may not work! Run 'echo 0 > /proc/sys/kernel/randomize_va_space' as root to disable it, or try running with '+isomalloc_sync'.
+Charm++> scheduler running in netpoll mode.
+CharmLB> Load balancer assumes all CPUs are same.
+Charm++> Running on 1 unique compute nodes (24-way SMP).
+Charm++> cpu topology info is gathered in 0.030 seconds.
+ITER 10, MAX: 108730, TOTAL: 75031250
+Simulation Complete
+Time taken: 39.825659
+[Partition 0][Node 0] End of program
+Charmrun> scalable start enabled. 
+Charmrun> started all node programs in 1.573 seconds.
+Charm++> Running in non-SMP mode: numPes 12
+Converse/Charm++ Commit ID: v6.8.2
+Warning> Randomization of virtual memory (ASLR) is turned on in the kernel, thread migration may not work! Run 'echo 0 > /proc/sys/kernel/randomize_va_space' as root to disable it, or try running with '+isomalloc_sync'.
+Charm++> scheduler running in netpoll mode.
+CharmLB> Load balancer assumes all CPUs are same.
+Charm++> Running on 1 unique compute nodes (24-way SMP).
+Charm++> cpu topology info is gathered in 0.004 seconds.
+ITER 10, MAX: 108730, TOTAL: 75031250
+ITER 20, MAX: 104243, TOTAL: 75031250
+Simulation Complete
+Time taken: 59.038794
+[Partition 0][Node 0] End of program
+Charmrun> scalable start enabled. 
+Charmrun> started all node programs in 1.568 seconds.
+Charm++> Running in non-SMP mode: numPes 12
+Converse/Charm++ Commit ID: v6.8.2
+Warning> Randomization of virtual memory (ASLR) is turned on in the kernel, thread migration may not work! Run 'echo 0 > /proc/sys/kernel/randomize_va_space' as root to disable it, or try running with '+isomalloc_sync'.
+Charm++> scheduler running in netpoll mode.
+CharmLB> Load balancer assumes all CPUs are same.
+Charm++> Running on 1 unique compute nodes (24-way SMP).
+Charm++> cpu topology info is gathered in 0.004 seconds.
+ITER 10, MAX: 108730, TOTAL: 75031250
+ITER 20, MAX: 104243, TOTAL: 75031250
+ITER 30, MAX: 101074, TOTAL: 75031250
+Simulation Complete
+Time taken: 78.457335
+[Partition 0][Node 0] End of program
+Charmrun> scalable start enabled. 
+Charmrun> started all node programs in 1.574 seconds.
+Charm++> Running in non-SMP mode: numPes 12
+Converse/Charm++ Commit ID: v6.8.2
+Warning> Randomization of virtual memory (ASLR) is turned on in the kernel, thread migration may not work! Run 'echo 0 > /proc/sys/kernel/randomize_va_space' as root to disable it, or try running with '+isomalloc_sync'.
+Charm++> scheduler running in netpoll mode.
+CharmLB> Load balancer assumes all CPUs are same.
+Charm++> Running on 1 unique compute nodes (24-way SMP).
+Charm++> cpu topology info is gathered in 0.005 seconds.
+ITER 10, MAX: 108730, TOTAL: 75031250
+ITER 20, MAX: 104243, TOTAL: 75031250
+ITER 30, MAX: 101074, TOTAL: 75031250
+ITER 40, MAX: 98712, TOTAL: 75031250
+Simulation Complete
+Time taken: 98.276749
+[Partition 0][Node 0] End of program
+----------------------------------------
+Begin Torque Epilogue (Tue Nov  7 22:15:44 2017)
+Job ID:           6655501.cc-mgmt1.campuscluster.illinois.edu
+Username:         yhtseng2
+Group:            CS484_fa17
+Job Name:         mp3
+Session:          9238
+Limits:           nodes=1:ppn=12,walltime=00:10:00,neednodes=1:ppn=12
+Resources:        cput=00:00:00,vmem=61500kb,walltime=00:05:05,mem=4424kb,energy_used=0
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub296
+End Torque Epilogue
+----------------------------------------
